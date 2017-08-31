@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 from flask import Flask, render_template, request, jsonify
 from flask_sqlalchemy import SQLAlchemy
-from mypagination import my_pagination
+from mypagination import my_pagination, my_talbe
 from models import *
 
 import sys
@@ -38,28 +38,8 @@ def getusers():
     users = Users.query.paginate(page, PER_PAGE, False).items
     pagination = Users.query.paginate(page, PER_PAGE, True)
 
-    result_table = ""
-    result_table += "<table class='table table-hover'>"
-    result_table += "<thead>"
-    result_table += "<tr class='info'>"
-    result_table += "<th>id</th>"
-    result_table += "<th>firstname</th>"
-    result_table += "<th>lastname</th>"
-    result_table += "<th>phone</th>"
-    result_table += "<th>email</th>"
-    result_table += "</tr>"
-    result_table += "</thead>"
-    result_table += "<tbody>"
-    for user in users:
-        result_table += "<tr>"
-        result_table += "<td>" + str(user.id) + "</td>"
-        result_table += "<td>" + str(user.firstname) + "</td>"
-        result_table += "<td>" + str(user.lastname) + "</td>"
-        result_table += "<td>" + str(user.phone) + "</td>"
-        result_table += "<td>" + str(user.email) + "</td>"
-        result_table += "</tr>"
-    result_table += "</tbody>"
-    result_table += "</table>"
+    cols = ["id", "firstname", "lastname", "phone", "email"]
+    result_table = my_talbe(cols, users)
 
     result_page = my_pagination(pagination, "queryUsers", PER_PAGE)
     result = result_table + result_page
@@ -73,28 +53,8 @@ def gettodolist():
     todolists = Todolist.query.paginate(page, PER_PAGE, False).items
     pagination = Todolist.query.paginate(page, PER_PAGE, True)
 
-    result_table = ""
-    result_table += "<table class='table table-hover'>"
-    result_table += "<thead>"
-    result_table += "<tr class='info'>"
-    result_table += "<th>id</th>"
-    result_table += "<th>user_id</th>"
-    result_table += "<th>title</th>"
-    result_table += "<th>status</th>"
-    result_table += "<th>create_time</th>"
-    result_table += "</tr>"
-    result_table += "</thead>"
-    result_table += "<tbody>"
-    for todo in todolists:
-        result_table += "<tr>"
-        result_table += "<td>" + str(todo.id) + "</td>"
-        result_table += "<td>" + str(todo.user_id) + "</td>"
-        result_table += "<td>" + str(todo.title) + "</td>"
-        result_table += "<td>" + str(todo.status) + "</td>"
-        result_table += "<td>" + str(todo.create_time) + "</td>"
-        result_table += "</tr>"
-    result_table += "</tbody>"
-    result_table += "</table>"
+    cols = ["id", "user_id", "title", "status", "create_time"]
+    result_table = my_talbe(cols, todolists)
 
     result_page = my_pagination(pagination, "queryTodolist", PER_PAGE)
     result = result_table + result_page

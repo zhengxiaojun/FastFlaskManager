@@ -35,3 +35,24 @@ def my_pagination(pagination, endpoint, per_page):
     result_page += "</div>"
 
     return result_page
+
+
+def my_talbe(cols, data):
+    result_table = ""
+    result_table += "<table class='table table-hover'>"
+    result_table += "<thead>"
+    result_table += "<tr class='info'>"
+    for col in cols:
+        result_table += "<th>" + str(col) + "</th>"
+    result_table += "</tr>"
+    result_table += "</thead>"
+    result_table += "<tbody>"
+    for line in data:
+        result_table += "<tr>"
+        for col in cols:
+            result_table += "<td>" + str(getattr(line, col)) + "</td>"
+        result_table += "</tr>"
+    result_table += "</tbody>"
+    result_table += "</table>"
+
+    return result_table
