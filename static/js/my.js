@@ -7,12 +7,12 @@ function queryForPages(page) {
     });
 }
 
-function queryUsers(page, per_page) {
+function queryContacts(page, per_page, kword) {
     $.ajax({
-        url: "getusers",
+        url: "getcontacts",
         type: 'post',
         dataType: 'html',
-        data: {"page": page, "per_page": per_page},
+        data: {"page": page, "per_page": per_page, "kword": kword},
         success: function callbackFun(data) {
             document.getElementById("pagi").innerHTML = data;
         },
@@ -39,5 +39,5 @@ function queryTodolist(page, per_page) {
 
 function showCount() {
     var per_page = $("#perPage option:selected").text();
-    queryUsers(1, per_page);
+    queryContacts(1, per_page);
 }

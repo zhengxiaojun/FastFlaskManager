@@ -1,0 +1,65 @@
+{% extends "bootstrap/base.html" %}
+
+{% block title %}我的flask应用{% endblock %}
+
+{% block navbar %}
+<nav class="navbar navbar-inverse container">
+    <div class="navbar-header"><a class="navbar-brand" href="{{ url_for('index') }}">主页</a></div>
+    <!-- logout links -->
+    {% if current_user.is_authenticated %}
+    <ul class="nav navbar-nav pull-right">
+        <li><a class="btn" href="{{ url_for('todolist') }}">事件</a></li>
+        <li><a class="btn" href="{{ url_for('contacts') }}">联系人</a></li>
+        <li class="dropdown">
+            <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                <span class="glyphicon glyphicon-user"></span> 欢迎! {{current_user.username}}</a>
+            <ul class="dropdown-menu">
+                <li><a href="{{ url_for('logout') }}">登出</a></li>
+                <li><a href="#">注册新用户</a></li>
+                <li><a href="#">更多设置</a></li>
+                <li class="divider">&nbsp;</li>
+                <li><a href="#">帮助</a></li>
+            </ul>
+        </li>
+    </ul>
+    {% endif %}
+</nav>
+{% endblock %}
+
+{% block content %}
+
+<div class="container">
+    <!-- flash message -->
+    {% for message in get_flashed_messages() %}
+    <div class="alert alert-warning alert-dismissible" role="alert">
+        <button type="button" class="close" data-dismiss="alert">
+            <span aria-hidden="true">&times;</span>
+            <span class="sr-only">close</span></button>
+        {{ message }}
+    </div>
+    {% endfor %}
+
+    <!-- body block -->
+    {% block page_content %} {% endblock %}
+
+    <!--common js-->
+    <script type="text/javascript" src="{{ url_for('static',filename='js/jquery.js') }}"></script>
+    <script type="text/javascript" src="{{ url_for('static',filename='js/bootstrap.min.js') }}"></script>
+    <script type="text/javascript" src="{{ url_for('static',filename='js/my.js') }}"></script>
+
+    <!-- block js -->
+    {% block js %}
+    {% endblock %}
+
+    <!-- block footer -->
+    <div class="mastfoot">
+        <div class="inner">
+            <a href='https://www.google.com.hk/'>沪ICP备16013637号</a>
+        </div>
+    </div>
+
+</div>
+{% endblock %}
+
+
+
