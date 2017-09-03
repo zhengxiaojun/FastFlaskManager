@@ -3,7 +3,7 @@
     <div class="col-md-12">
         <ul class="pagination pagination-centered">
             <li {% if pagination.has_prev %}class="active" {% else %}class="disabled" {% endif %}>
-                <a href="{{ url_for(endpoint, page=1) }}">«</a>
+                <a href="{{ url_for(endpoint, page=1) }}">首页</a>
             </li>
             {%- for page in pagination.iter_pages() %}
             {% if page %}
@@ -17,7 +17,7 @@
             {% endif %}
             {%- endfor %}
             <li {% if pagination.has_next %} class="active" {% else %} class="disabled" {% endif %}>
-                <a href="{{ url_for(endpoint, page=pagination.pages) }}">»</a>
+                <a href="{{ url_for(endpoint, page=pagination.pages) }}">末页</a>
             </li>
         </ul>
     </div>

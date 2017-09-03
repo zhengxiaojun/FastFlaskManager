@@ -1,17 +1,20 @@
-from runpages import db
+# -*- coding: UTF-8 -*-
+from flask_sqlalchemy import SQLAlchemy
+from flask_login import UserMixin
+import time
+
+db = SQLAlchemy()
 
 
-# from datetime import datetime
+class Contacts(db.Model):
+    __tablename__ = 'contacts'
+    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    firstname = db.Column(db.String(50), nullable=False)
+    lastname = db.Column(db.String(50), nullable=False)
+    phone = db.Column(db.String(200), nullable=True)
+    email = db.Column(db.String(200), nullable=True)
 
-class Users(db.Model):
-    id = db.Column(db.Integer, primary_key=True, autoincrement=1)
-    firstname = db.Column(db.String(50))
-    lastname = db.Column(db.String(50))
-    phone = db.Column(db.String(200))
-    email = db.Column(db.String(200))
-
-    def __init__(self, id, firstname, lastname, phone, email):
-        self.id = id
+    def __init__(self, firstname, lastname, phone, email):
         self.firstname = firstname
         self.lastname = lastname
         self.phone = phone
@@ -21,9 +24,31 @@ class Users(db.Model):
         return '[%s,%s,%s,%s,%s]' % (self.id, self.firstname, self.lastname, self.phone, self.email)
 
 
+class User(UserMixin, db.Model):
+    __tablename__ = "user"
+    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    username = db.Column(db.String(24), nullable=False)
+    password = db.Column(db.String(24), nullable=False)
+    role = db.Column(db.Integer, nullable=False)
+    create_time = db.Column(db.String(50), nullable=True)
+
+    def __init__(self, username, password, role):
+        self.username = username
+        self.password = password
+        self.role = role
+        self.create_time = time.strftime("%Y-%m-%d %H:%M:%S", time.localtime())
+
+
 class Todolist(db.Model):
-    id = db.Column(db.Integer, primary_key=True, autoincrement=1)
-    user_id = db.Column(db.Integer)
-    title = db.Column(db.String(1024))
-    status = db.Column(db.Integer)
-    create_time = db.Column(db.Integer)
+    __tablename__ = 'todolist'
+    id = db.Column(db.Integer, primary_key=True)
+    user_id = db.Column(db.Integer, nullable=False)
+    title = db.Column(db.String(1024), nullable=False)
+    status = db.Column(db.Integer, nullable=False)
+    create_time = db.Column(db.String(50), nullable=False)
+
+    def __init__(self, user_id, title, status):
+        self.user_id = user_id
+        self.title = title
+        self.status = status
+        self.create_time = time.strftime("%Y-%m-%d %H:%M:%S", time.localtime())

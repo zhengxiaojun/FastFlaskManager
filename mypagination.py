@@ -35,3 +35,33 @@ def my_pagination(pagination, endpoint, per_page):
     result_page += "</div>"
 
     return result_page
+
+
+def my_talbe(cols, data):
+    result_table = ""
+    result_table += "<table class='table table-hover'>"
+    result_table += "<thead>"
+    result_table += "<tr class='info'>"
+    result_table += "<th>序号</th>"
+    result_table += "<th>名</th>"
+    result_table += "<th>姓</th>"
+    result_table += "<th>电话</th>"
+    result_table += "<th>邮箱</th>"
+    result_table += "<th>操作</th>"
+    result_table += "</tr>"
+    result_table += "</thead>"
+    result_table += "<tbody>"
+    for line in data:
+        result_table += "<tr>"
+        for col in cols:
+            result_table += "<td>" + str(getattr(line, col)) + "</td>"
+        result_table += "<td><a href='/contact/change/" + str(line.id) + "'"
+        result_table += " class='btn btn-success' role='button'>修改</a>"
+        result_table += " "
+        result_table += "<a href='/contact/delete/" + str(line.id) + "'"
+        result_table += " class='btn btn-danger' role='button' onclick='javascript:return deletePrompt();'>删除</a></td>"
+        result_table += "</tr>"
+    result_table += "</tbody>"
+    result_table += "</table>"
+
+    return result_table
