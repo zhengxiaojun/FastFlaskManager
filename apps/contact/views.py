@@ -44,8 +44,8 @@ def getcontacts():
         return result
     else:
         contacts = Contacts.query.filter(
-                (Contacts.firstname.like('%' + kword + '%')) | (Contacts.lastname.like('%' + kword + '%')) | (
-                    Contacts.phone.like('%' + kword + '%')) | (Contacts.email.like('%' + kword + '%')))
+            (Contacts.firstname.like('%' + kword + '%')) | (Contacts.lastname.like('%' + kword + '%')) | (
+                Contacts.phone.like('%' + kword + '%')) | (Contacts.email.like('%' + kword + '%')))
         result_table = my_talbe(cols, contacts)
         result = result_table
         return result

@@ -1,9 +1,19 @@
 # -*- coding: UTF-8 -*-
 from flask_sqlalchemy import SQLAlchemy
 from flask_login import UserMixin
+from sqlalchemy.inspection import inspect
 import time
 
 db = SQLAlchemy()
+
+
+class Serializer(object):
+    def serialize(self):
+        return {c: getattr(self, c) for c in inspect(self).attrs.keys()}
+
+    @staticmethod
+    def serializelist(cols):
+        return [m.serialize() for m in cols]
 
 
 class Contacts(db.Model):
@@ -24,7 +34,7 @@ class Contacts(db.Model):
         return '[%s,%s,%s,%s,%s]' % (self.id, self.firstname, self.lastname, self.phone, self.email)
 
 
-class User(UserMixin, db.Model):
+class User(UserMixin, db.Model, Serializer):
     __tablename__ = "user"
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     username = db.Column(db.String(24), nullable=False)
@@ -37,6 +47,11 @@ class User(UserMixin, db.Model):
         self.password = password
         self.role = role
         self.create_time = time.strftime("%Y-%m-%d %H:%M:%S", time.localtime())
+
+    def serialize(self):
+        d = Serializer.serialize(self)
+        del d['password']  # 不显示密码
+        return d
 
 
 class Todolist(db.Model):

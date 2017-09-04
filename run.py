@@ -5,6 +5,7 @@ from ext import app
 from apps.auth import auth
 from apps.contact import contact
 from apps.todo import todo
+from apis.user import authapi
 import sys
 
 reload(sys)
@@ -13,6 +14,7 @@ sys.setdefaultencoding("utf-8")
 app.register_blueprint(auth, url_prefix='/auth')
 app.register_blueprint(contact, url_prefix='/contact')
 app.register_blueprint(todo, url_prefix='/todo')
+app.register_blueprint(authapi, url_prefix='/api')
 
 
 @app.route('/', methods=["GET"])

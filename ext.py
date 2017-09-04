@@ -15,7 +15,7 @@ app = Flask(__name__, template_folder=os.path.join(cPath, 'templates'))
 bootstrap = Bootstrap(app)
 
 app.secret_key = "this is my page"
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///mypage.db'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///database/mypage.db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 db.init_app(app)

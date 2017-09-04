@@ -34,7 +34,7 @@ def logout():
 @auth.route('/index', methods=['GET', 'POST'])
 @login_required
 def index():
-    form = UserListForm()
+    form = NewUserForm()
     if request.method == 'GET':
         page = request.args.get('page', 1, type=int)
         userlist = User.query.paginate(page, 10, False).items
@@ -66,15 +66,14 @@ def delete(id):
 @auth.route('/change/<int:id>', methods=['GET', 'POST'])
 @login_required
 def change(id):
+    form = ChangeUserForm()
     if request.method == 'GET':
         user = User.query.filter_by(id=id).first_or_404()
-        form = UserListForm()
         form.username.data = user.username
         form.password.data = user.password
         form.role.data = str(user.role)
         return render_template('auth/modify.html', form=form)
     else:
-        form = UserListForm()
         if form.validate_on_submit():
             m = hashlib.md5()
             user = User.query.filter_by(id=id).first_or_404()
