@@ -2,6 +2,7 @@
 from flask_sqlalchemy import SQLAlchemy
 from flask_login import UserMixin
 from sqlalchemy.inspection import inspect
+from itsdangerous import TimedJSONWebSignatureSerializer as SerializerToken, BadSignature, SignatureExpired
 import time
 
 db = SQLAlchemy()
@@ -53,6 +54,28 @@ class User(UserMixin, db.Model, Serializer):
         del d['password']  # 不显示密码
         return d
 
+    def verify_password(self, password):
+        if password == self.password:
+            return True
+        else:
+            return False
+
+    def generate_auth_token(self, expiration=600):
+        s = SerializerToken("produce token", expires_in=expiration)
+        return s.dumps({'id': self.id})
+
+    @staticmethod
+    def verify_auth_token(token):
+        s = SerializerToken("produce token")
+        try:
+            data = s.loads(token)
+        except SignatureExpired:
+            return None  # valid token, but expired
+        except BadSignature:
+            return None  # invalid token
+        user = User.query.get(data['id'])
+        return user
+
 
 class Todolist(db.Model):
     __tablename__ = 'todolist'
@@ -67,3 +90,6 @@ class Todolist(db.Model):
         self.title = title
         self.status = status
         self.create_time = time.strftime("%Y-%m-%d %H:%M:%S", time.localtime())
+
+# if __name__ == '__main__':
+#     db.create_all()
