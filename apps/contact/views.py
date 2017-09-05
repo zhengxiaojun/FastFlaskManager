@@ -29,7 +29,7 @@ def index():
 @contact.route('/getcontacts', methods=["POST"])
 def getcontacts():
     page = int(request.form.get('page', 1))
-    PER_PAGE = int(request.form.get('per_page', 5))
+    PER_PAGE = int(request.form.get('per_page', 10))
     kword = request.form.get('kword', None)
 
     cols = ["id", "firstname", "lastname", "phone", "email"]

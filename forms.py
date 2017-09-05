@@ -34,6 +34,6 @@ class ContactlistForm(FlaskForm):
 
 
 class TodoListForm(FlaskForm):
-    title = StringField('标题', validators=[DataRequired(), Length(1, 64)])
+    title = StringField('标题', validators=[DataRequired(), Length(1, 64)], render_kw={"placeholder": "请输入标题"})
     status = RadioField('是否完成', validators=[DataRequired()], choices=[("1", '是'), ("0", '否')])
     submit = SubmitField('提交')
