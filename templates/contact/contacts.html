@@ -6,22 +6,24 @@
 
 {% block page_content %}
 
-<div class="form-group">
-    <div class="form-inline">
-        <button class="btn btn-primary" onclick="queryContacts();">查询联系</button>
-        <!-- Button trigger modal -->
-        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal"> 添加联系</button>
-        <input type="text" id="search" name="search" value="" placeholder="关键字查询">
-        <span>显示行数</span>
-            <span>
-            <select id="perPage" onchange="showCount();">
+<div class="form-inline" style="padding: 10px;">
+    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal"> 添加联系</button>
+
+    <div class="input-group">
+        <input type="text" class="form-control" id="search" name="search" value="" placeholder="关键字查询...">
+        <span class="input-group-addon"><i class="fa fa-search"></i></span>
+    </div>
+    <span>显示行数</span>
+    <span>
+        <select id="perPage" onchange="showCount();">
                 <option>5</option>
                 <option>10</option>
                 <option>20</option>
-            </select>
-            </span>
-    </div>
+        </select>
+    </span>
 </div>
+
+
 <div class="form-group">
     <div id="pagi"></div>
 </div>
@@ -59,5 +61,6 @@
             }
         });
     });
+    queryContacts();
 </script>
 {% endblock %}

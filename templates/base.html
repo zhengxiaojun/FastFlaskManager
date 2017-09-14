@@ -351,7 +351,7 @@
             <!-- sidebar menu: : style can be found in sidebar.less -->
             <ul class="sidebar-menu">
                 <li class="header">主菜单</li>
-                <li class="active treeview">
+                <li class="treeview">
                     <a href="#">
                         <i class="fa fa-dashboard"></i> <span>任务管理</span>
                         <span class="pull-right-container">
@@ -359,7 +359,8 @@
                         </span>
                     </a>
                     <ul class="treeview-menu">
-                        <li class="active"><a href="{{ url_for('todo.index') }}"><i class="fa fa-circle-o"></i> 待办事项</a>
+                        <li class=""><a href="{{ url_for('todo.index') }}" id="todolist"><i class="fa fa-circle-o"></i>
+                            待办事项</a>
                         </li>
                         <li><a href="#"><i class="fa fa-circle-o"></i> 其它</a></li>
                     </ul>
@@ -372,7 +373,8 @@
                         </span>
                     </a>
                     <ul class="treeview-menu">
-                        <li class="active"><a href="{{ url_for('contact.index') }}"><i class="fa fa-circle-o"></i>
+                        <li class=""><a href="{{ url_for('contact.index') }}" id="contacts"><i
+                                class="fa fa-circle-o"></i>
                             联系人</a></li>
                         <li><a href="#"><i class="fa fa-circle-o"></i> 其它</a></li>
                     </ul>
@@ -385,7 +387,8 @@
                         </span>
                     </a>
                     <ul class="treeview-menu">
-                        <li class="active"><a href="{{ url_for('auth.index') }}"><i class="fa fa-circle-o"></i> 用户列表</a>
+                        <li class=""><a href="{{ url_for('auth.index') }}" id="userlist"><i class="fa fa-circle-o"></i>
+                            用户列表</a>
                         </li>
                         <li><a href="#"><i class="fa fa-circle-o"></i> 其它</a></li>
                     </ul>
@@ -411,15 +414,18 @@
 
         <!-- Main content -->
         <section class="content">
-            <!-- flash message -->
-            {% for message in get_flashed_messages() %}
-            <div class="alert alert-warning alert-dismissible" role="alert">
-                <button type="button" class="close" data-dismiss="alert">
-                    <span aria-hidden="true">&times;</span>
-                    <span class="sr-only">close</span></button>
-                {{ message }}
+            <div style="padding-top: 15px;">
+                <!-- flash message -->
+                {% for message in get_flashed_messages() %}
+                <div class="alert alert-warning alert-dismissible" role="alert">
+                    <button type="button" class="close" data-dismiss="alert">
+                        <span aria-hidden="true">&times;</span>
+                        <span class="sr-only">close</span></button>
+                    {{ message }}
+                </div>
+                {% endfor %}
             </div>
-            {% endfor %}
+
             {% block page_content %}{% endblock %}
         </section>
         <!-- /.content -->
@@ -668,11 +674,28 @@
 <script type="text/javascript" src="{{ url_for('static',filename='js/app.min.js') }}"></script>
 <!-- AdminLTE for demo purposes -->
 <script type="text/javascript" src="{{ url_for('static',filename='js/demo.js') }}"></script>
+<!-- Layout JS-->
+<script type="text/javascript" src="{{ url_for('static',filename='js/layout/jquery.layout.js') }}"></script>
 <!-- Common JS-->
 <script type="text/javascript" src="{{ url_for('static',filename='js/my.js') }}"></script>
 
+<!-- sidebar active js -->
+<script>
+    var url = window.location.href;
+    // for sidebar menu entirely but not cover treeview
+    $('ul.sidebar-menu a').filter(function () {
+        return this.href == url;
+    }).parent().addClass('active');
+
+    // for treeview
+    $('ul.treeview-menu a').filter(function () {
+        return this.href == url;
+    }).closest('.treeview').addClass('active');
+</script>
+
 <!-- block js -->
 {% block js %}{% endblock %}
+
 
 </body>
 </html>
