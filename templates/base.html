@@ -638,46 +638,16 @@
 
 <!-- jQuery 2.2.3 -->
 <script type="text/javascript" src="{{ url_for('static',filename='js/jQuery/jquery-2.2.3.min.js') }}"></script>
-<!-- jQuery UI 1.11.4 -->
-<script src="https://code.jquery.com/ui/1.11.4/jquery-ui.min.js"></script>
-<!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
-<script>
-    $.widget.bridge('uibutton', $.ui.button);
-</script>
 <!-- Bootstrap 3.3.7 -->
 <script type="text/javascript" src="{{ url_for('static',filename='js/bootstrap.min.js') }}"></script>
-<!-- Morris.js charts -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/raphael/2.1.0/raphael-min.js"></script>
-<script type="text/javascript" src="{{ url_for('static',filename='css/morris/morris.min.js') }}"></script>
-<!-- Sparkline -->
-<script type="text/javascript" src="{{ url_for('static',filename='js/sparkline/jquery.sparkline.min.js') }}"></script>
-<!-- jvectormap -->
-<script type="text/javascript"
-        src="{{ url_for('static',filename='css/jvectormap/jquery-jvectormap-1.2.2.min.js') }}"></script>
-<script type="text/javascript"
-        src="{{ url_for('static',filename='css/jvectormap/jquery-jvectormap-world-mill-en.js') }}"></script>
-<!-- jQuery Knob Chart -->
-<script type="text/javascript" src="{{ url_for('static',filename='js/knob/jquery.knob.js') }}"></script>
-<!-- daterangepicker -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.11.2/moment.min.js"></script>
-<script type="text/javascript" src="{{ url_for('static',filename='css/daterangepicker/daterangepicker.js') }}"></script>
-<!-- datepicker -->
-<script type="text/javascript" src="{{ url_for('static',filename='css/datepicker/bootstrap-datepicker.js') }}"></script>
-<!-- Bootstrap WYSIHTML5 -->
-<script type="text/javascript"
-        src="{{ url_for('static',filename='css/bootstrap-wysihtml5/bootstrap3-wysihtml5.all.min.js') }}"></script>
-<!-- Slimscroll -->
-<script type="text/javascript" src="{{ url_for('static',filename='js/slimScroll/jquery.slimscroll.min.js') }}"></script>
-<!-- FastClick -->
-<script type="text/javascript" src="{{ url_for('static',filename='js/fastclick/fastclick.js') }}"></script>
 <!-- AdminLTE App -->
 <script type="text/javascript" src="{{ url_for('static',filename='js/app.min.js') }}"></script>
 <!-- AdminLTE for demo purposes -->
 <script type="text/javascript" src="{{ url_for('static',filename='js/demo.js') }}"></script>
-<!-- Layout JS-->
-<script type="text/javascript" src="{{ url_for('static',filename='js/layout/jquery.layout.js') }}"></script>
 <!-- Common JS-->
 <script type="text/javascript" src="{{ url_for('static',filename='js/my.js') }}"></script>
+
+{% block plugin_js %}{% endblock %}
 
 <!-- sidebar active js -->
 <script>
@@ -692,10 +662,6 @@
         return this.href == url;
     }).closest('.treeview').addClass('active');
 </script>
-
-<!-- block js -->
 {% block js %}{% endblock %}
-
-
 </body>
 </html>
