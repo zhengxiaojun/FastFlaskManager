@@ -49,3 +49,39 @@ function deletePrompt() {
         return false;
     }
 }
+
+function formatXML() {
+    xdata = document.getElementById("xmlData").value;
+    $.ajax({
+        url: "formatXml",
+        type: 'post',
+        dataType: 'html',
+        data: {"xdata": xdata},
+        beforeSend: function () {
+            $("#fmtxml").attr({disabled: "disabled"});
+            loaddiv = '<div id="pload" style="position:fixed;top:30%;z-index:1200;background:url(/static/img/loading.gif) top center no-repeat;width:100%;height:140px;margin:auto auto;" aria-hidden="true"></div>'
+            $("body").append(loaddiv);
+        },
+        complete: function () {
+            $("#fmtxml").removeAttr("disabled");
+            $("#pload").remove();
+        },
+        success: function callbackFun(data) {
+            document.getElementById("ftxmlData").value = data;
+        },
+        error: function callbackErr() {
+            document.getElementById("ftxmlData").value = "未知错误.";
+        }
+    });
+}
+
+function copyftdata() {
+    var ftxmlData = document.getElementById("ftxmlData");
+    ftxmlData.select(); // 选择对象
+    document.execCommand("Copy"); // 执行浏览器复制命令
+}
+
+function clearXML() {
+    document.getElementById("xmlData").value = "";
+    document.getElementById("ftxmlData").value = "";
+}
