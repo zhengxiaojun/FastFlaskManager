@@ -85,3 +85,64 @@ function clearXML() {
     document.getElementById("xmlData").value = "";
     document.getElementById("ftxmlData").value = "";
 }
+
+function genmd5() {
+    $.post('genmd5', {inpmd5: $('input[name="inp"]').val()},
+        function (data) {
+            $('#result16low').text('16位小写：' + data.md5low16);
+            $('#result16upe').text('16位大写：' + data.md5upe16);
+            $('#result32low').text('32位小写：' + data.md5low32);
+            $('#result32upe').text('32位大写：' + data.md5upe32);
+        }
+    );
+}
+
+function time_rfs() {
+    var myDate = new Date();
+    $("#c_time").text(myDate.toLocaleString());
+    $("#u_time").text(Math.round(myDate.getTime() / 1000));
+}
+
+function get_current_time() {
+    var gct = document.getElementById("get_ctime").value;
+    if (gct.trim() == '停止') {
+        clearInterval(flag);
+        document.getElementById("get_ctime").value = '查看当前时间';
+    }
+    else {
+        flag = self.setInterval("time_rfs()", 1000);
+        document.getElementById("get_ctime").value = '停止';
+    }
+}
+
+function time_to_sec() {
+    ipt_ctime = $("#ipt_ctime").val();
+    myDate = new Date();
+    myDate.setFullYear(ipt_ctime.substring(0, 4));
+    myDate.setMonth(Number(ipt_ctime.substring(4, 6)) - 1);
+    myDate.setDate(ipt_ctime.substring(6, 8));
+    myDate.setHours(ipt_ctime.substring(8, 10));
+    myDate.setMinutes(ipt_ctime.substring(10, 12));
+    myDate.setSeconds(ipt_ctime.substring(12, 14));
+    myDate.setMilliseconds(ipt_ctime.substring(14, 17));
+    $("#opt_utime").text(Math.round(myDate.getTime() / 1000));
+}
+
+function sec_to_time() {
+    var myDate = new Date(Number($("#ipt_utime").val()) * 1000);
+    $("#opt_ctime").text(myDate.toLocaleString());
+}
+
+function comparejson() {
+    var ljson_data = ljson.getValue();
+    var rjson_data = rjson.getValue();
+
+    $.post("comparejson", {"ljson": ljson_data, "rjson": rjson_data}, function (rp) {
+        document.getElementById("cmpjsonresult").innerHTML = rp;
+    });
+}
+
+function clearJson() {
+    ljson.setValue('');
+    rjson.setValue('');
+}

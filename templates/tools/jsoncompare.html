@@ -1,0 +1,64 @@
+{% extends "base.html" %}
+{% import "bootstrap/wtf.html" as wtf %}
+
+{% block title %}比较Json{% endblock %}
+{% block endpoint %}比较Json{% endblock %}
+
+{% block page_content %}
+
+
+<div class="row">
+    <div class="col-lg-5 col-xs-5">
+        <div>
+            <span>
+                <pre name="l_json" id="l_json" style="width: 475px;height: 500px;" placeholder="输入json">
+                </pre>
+            </span>
+        </div>
+    </div>
+    <div class="col-lg-1 col-xs-1" style="text-align: center">
+        <div style="padding-top: 5px;">
+            <button id="cmpjson" type="button" class="btn btn-primary" onclick="comparejson();"> 比较</button>
+        </div>
+        <div style="padding-top: 5px;">
+            <button type="button" class="btn btn-primary" onclick="clearJson();"> 清空</button>
+        </div>
+    </div>
+    <div class="col-lg-6 col-xs-6">
+        <div>
+            <span>
+                <pre name="r_json" id="r_json" style="width: 475px;height: 500px;" placeholder="输入json">
+                </pre>
+            </span>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-lg-12 col-xs-12">
+        <h4 style="color: green">比较结果</h4>
+        <div id="cmpjsonresult" style="color: red"></div>
+    </div>
+</div>
+
+
+{% endblock %}
+
+{% block plugin_js %}
+<script type="text/javascript" src="{{ url_for('static',filename='js/ace/ace.js') }}"></script>
+{% endblock %}
+
+
+{% block js %}
+<!-- block js -->
+<script>
+    var ljson = ace.edit("l_json");
+    ljson.setTheme("ace/theme/tomorrow_night_blue");
+    ljson.session.setMode("ace/mode/javascript");
+    document.getElementById('l_json').style.fontSize = '16px';
+
+    var rjson = ace.edit("r_json");
+    rjson.setTheme("ace/theme/tomorrow_night_blue");
+    rjson.session.setMode("ace/mode/javascript");
+    document.getElementById('r_json').style.fontSize = '16px';
+</script>
+{% endblock %}

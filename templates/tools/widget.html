@@ -1,0 +1,73 @@
+{% extends "base.html" %}
+{% import "bootstrap/wtf.html" as wtf %}
+
+{% block title %}md5加密\时间戳{% endblock %}
+{% block endpoint %}md5加密\时间戳{% endblock %}
+
+{% block page_content %}
+
+
+<div class="row">
+    <div class="col-lg-12 col-xs-12">
+        <h3>MD5 转换</h3>
+        <div class="form-group">
+            <input type="text" name="inp" placeholder="请输入字符串"/>
+            <button class="btn-primary" type="button" id="gnrt" onclick="genmd5();">
+                <span class="glyphicon glyphicon-transfer"></span> 转换
+            </button>
+        </div>
+        <div class="form-group">
+            <span id="result16low"></span>
+        </div>
+        <div class="form-group">
+            <span id="result16upe"></span>
+        </div>
+        <div class="form-group">
+            <span id="result32low"></span>
+        </div>
+        <div class="form-group">
+            <span id="result32upe"></span>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-lg-12 col-xs-12">
+        <h3>时间戳转换</h3>
+        <div class="form-group">
+            <input id="get_ctime" type="button" class="btn-primary"
+                   value="查看当前时间"
+                   onclick="get_current_time();"/>
+        </div>
+        <div class="form-group">
+            当前时间：
+            <span id="c_time"></span>
+        </div>
+        <div class="form-group">
+            unix时间：
+            <span id="u_time"></span>
+        </div>
+        <div class="form-group">
+            本地时间转unix时间：
+            <input type="textbox" id="ipt_ctime" placeholder="请输入时间(YYMMDDhhmmssms) 24小时制"
+                   style="width:300px"/>
+            <button type="button" class="btn-primary" onclick="time_to_sec();">
+                <span class="glyphicon glyphicon-transfer"></span> 转换
+            </button>
+            <span id="opt_utime"></span>
+        </div>
+        <div class="form-group">
+            unix时间转本地时间：
+            <input type="textbox" id="ipt_utime" placeholder="请输入时间戳" style="width:300px"/>
+            <button type="button" class="btn-primary" onclick="sec_to_time();">
+                <span class="glyphicon glyphicon-transfer"></span> 转换
+            </button>
+            <span id="opt_ctime"></span>
+        </div>
+    </div>
+</div>
+
+
+<!-- Modal -->
+
+
+{% endblock %}

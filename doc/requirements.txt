@@ -5,14 +5,17 @@ Eve==0.7.4
 Events==0.2.2
 Flask==0.11.1
 Flask-Bootstrap==3.3.7.0
+Flask-HTTPAuth==3.2.3
 Flask-Login==0.4.0
 Flask-PyMongo==0.5.1
 Flask-SQLAlchemy==2.1
 Flask-WTF==0.13.1
 itsdangerous==0.24
 Jinja2==2.9.6
+jsoncompare==0.1.2
 MarkupSafe==0.23
 MySQL-python==1.2.5
+passlib==1.7.1
 pymongo==3.5.1
 simplejson==3.11.1
 SQLAlchemy==1.1.13

@@ -306,7 +306,7 @@
                             <!-- Menu Footer-->
                             <li class="user-footer">
                                 <div class="pull-left">
-                                    <a href="#" class="btn btn-default btn-flat">简介</a>
+                                    <a href="{{ url_for('auth.index') }}" class="btn btn-default btn-flat">修改密码</a>
                                 </div>
                                 <div class="pull-right">
                                     <a href="{{ url_for('auth.logout') }}" class="btn btn-default btn-flat">退出</a>
@@ -387,8 +387,15 @@
                         </span>
                     </a>
                     <ul class="treeview-menu">
-                        <li class=""><a href="{{ url_for('vxml.index') }}" id="ftxml"><i class="fa fa-circle-o"></i>
+                        <li class=""><a href="{{ url_for('vxml.formatXml') }}" id="ftxml"><i class="fa fa-circle-o"></i>
                             格式化XML</a>
+                        </li>
+                        <li class=""><a href="{{ url_for('vxml.widget') }}" id="md5time"><i class="fa fa-circle-o"></i>
+                            md5加密\时间戳</a>
+                        </li>
+                        <li class=""><a href="{{ url_for('vxml.comparejson') }}" id="cmpjson"><i
+                                class="fa fa-circle-o"></i>
+                            比较Json</a>
                         </li>
                         <li><a href="#"><i class="fa fa-circle-o"></i> 其它</a></li>
                     </ul>
