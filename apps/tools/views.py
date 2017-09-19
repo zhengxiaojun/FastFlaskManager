@@ -58,10 +58,22 @@ def comparejson():
             expect_json = json.loads(ljson, encoding='utf-8')
             actual_json = json.loads(rjson, encoding='utf-8')
             # result = jsoncompare.are_same(expect_json, actual_json,False,["status"])[0]
-            result = jsoncompare.are_same(expect_json, actual_json)[1]
-            if jsoncompare.are_same(expect_json, actual_json)[0]:
-                result = "No different."
+            if isinstance(expect_json, dict) and isinstance(actual_json, dict):
+                result = jsoncompare.are_same(expect_json, actual_json)[1]
+                if jsoncompare.are_same(expect_json, actual_json)[0]:
+                    result = "No different."
+            else:
+                result = "the data is not a json format."
         except Exception as error:
             result = str(error)
         finally:
             return str(result)
+
+
+@vxml.route('/formatjson', methods=['POST'])
+@login_required
+def formatjson():
+    data = request.form.get('data', '')
+    data = data.encode('utf-8')
+    data = eval(data)
+    return json.dumps(data, sort_keys=True, indent=4, ensure_ascii=False)

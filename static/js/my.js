@@ -146,3 +146,20 @@ function clearJson() {
     ljson.setValue('');
     rjson.setValue('');
 }
+
+function fmtJson() {
+    formatjson(ljson, ljson.getValue());
+    formatjson(rjson, rjson.getValue());
+}
+
+function formatjson(obj, data) {
+    try {
+        f = JSON.parse(data);
+    } catch (e) {
+        toastr.info("格式或语法错误，具体信息：" + e);
+        return;
+    }
+    $.post("formatjson", {"data": data}, function (rp) {
+        obj.setValue(rp);
+    });
+}

@@ -4,8 +4,11 @@
 {% block title %}比较Json{% endblock %}
 {% block endpoint %}比较Json{% endblock %}
 
-{% block page_content %}
+{% block customer_css %}
+<link href="{{ url_for('static',filename='css/toastr.css') }}" rel="stylesheet">
+{% endblock %}
 
+{% block page_content %}
 
 <div class="row">
     <div class="col-lg-5 col-xs-5">
@@ -22,6 +25,9 @@
         </div>
         <div style="padding-top: 5px;">
             <button type="button" class="btn btn-primary" onclick="clearJson();"> 清空</button>
+        </div>
+        <div style="padding-top: 5px;">
+            <button type="button" class="btn btn-primary" onclick="fmtJson();"> 格式化</button>
         </div>
     </div>
     <div class="col-lg-6 col-xs-6">
@@ -45,6 +51,7 @@
 
 {% block plugin_js %}
 <script type="text/javascript" src="{{ url_for('static',filename='js/ace/ace.js') }}"></script>
+<script type="text/javascript" src="{{ url_for('static',filename='js/ace/toastr.min.js') }}"></script>
 {% endblock %}
 
 
