@@ -75,5 +75,10 @@ def comparejson():
 def formatjson():
     data = request.form.get('data', '')
     data = data.encode('utf-8')
-    data = eval(data)
-    return json.dumps(data, sort_keys=True, indent=4, ensure_ascii=False)
+    try:
+        data = eval(data)
+        result = json.dumps(data, sort_keys=True, indent=4, ensure_ascii=False)
+    except Exception as error:
+        result = str(error)
+    finally:
+        return result
