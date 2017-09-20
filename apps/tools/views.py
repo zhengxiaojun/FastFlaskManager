@@ -89,6 +89,7 @@ def formatjson():
 
 
 @tool.route('/upload', methods=['GET', 'POST'])
+@login_required
 def upload():
     form = UploadForm()
     if request.method == 'GET':
