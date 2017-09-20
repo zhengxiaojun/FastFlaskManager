@@ -1,9 +1,13 @@
 # -*- coding: utf-8 -*-
-from flask import render_template, request, jsonify
+from flask import render_template, request, jsonify, redirect, url_for, flash
 from flask_login import login_required
 from ftxml import *
+from models import *
+from forms import *
 from jsoncompare import jsoncompare
-import hashlib, json
+from werkzeug.utils import secure_filename
+from ext import myfile
+import hashlib, json, os
 
 from apps.tools import tool
 
@@ -82,3 +86,37 @@ def formatjson():
         result = str(error)
     finally:
         return result
+
+
+@tool.route('/upload', methods=['GET', 'POST'])
+def upload():
+    form = UploadForm()
+    if request.method == 'GET':
+        files = Filelist.query.paginate(1, 10, False).items
+        pagination = Filelist.query.paginate(1, 10, True)
+        return render_template('tools/upload.html', form=form, files=files, pagination=pagination)
+    else:
+        if form.validate_on_submit():
+            filename = secure_filename(form.file.data.filename)
+            md5_filename = Filelist.get_md5_filename(filename)
+            # 请注意保存文件时是用了UploadSet对象调用了save方法，而且这个save方法的第一个参数是文件对象，第二个参数是文件名
+            myfile.save(form.file.data, name=md5_filename)
+
+            file = Filelist(filename, md5_filename, myfile.path(md5_filename), myfile.url(md5_filename))
+            db.session.add(file)
+            db.session.commit()
+            flash('您上传了一个文件!')
+        else:
+            flash(form.errors)
+        return redirect(url_for('tool.upload'))
+
+
+@tool.route('/remove/<int:id>')
+@login_required
+def remove(id):
+    file = Filelist.query.filter_by(id=id).first_or_404()
+    os.remove(file.path)
+    db.session.delete(file)
+    db.session.commit()
+    flash('您成功删除一个文件!')
+    return redirect(url_for('tool.upload'))

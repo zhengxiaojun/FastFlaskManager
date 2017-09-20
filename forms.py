@@ -1,8 +1,10 @@
 # -*- coding: UTF-8 -*-
 from __future__ import unicode_literals
 from flask_wtf import FlaskForm
+from flask_wtf.file import FileField, FileRequired, FileAllowed
 from wtforms import RadioField, SubmitField, StringField, PasswordField
 from wtforms.validators import DataRequired, Length
+from ext import myfile
 
 
 class LoginForm(FlaskForm):
@@ -44,3 +46,8 @@ class ServerListForm(FlaskForm):
     path = StringField('路径', validators=[DataRequired(), Length(1, 64)], render_kw={"placeholder": "请输入路径"})
     description = StringField('描述', validators=[Length(1, 64)], render_kw={"placeholder": "请输入描述"})
     submit = SubmitField('提交')
+
+
+class UploadForm(FlaskForm):
+    file = FileField('请上传', validators=[FileRequired(), FileAllowed(myfile, '文件格式不对!')])
+    submit = SubmitField('上传')

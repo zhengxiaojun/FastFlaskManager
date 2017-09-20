@@ -3,7 +3,7 @@ from flask_sqlalchemy import SQLAlchemy
 from flask_login import UserMixin
 from sqlalchemy.inspection import inspect
 from itsdangerous import TimedJSONWebSignatureSerializer as SerializerToken, BadSignature, SignatureExpired
-import time
+import time, os, hashlib, random
 
 db = SQLAlchemy()
 
@@ -109,6 +109,39 @@ class Serverlist(db.Model):
         self.status = status
         self.create_time = time.strftime("%Y-%m-%d %H:%M:%S", time.localtime())
         self.update_time = time.strftime("%Y-%m-%d %H:%M:%S", time.localtime())
+
+
+class Filelist(db.Model):
+    __tablename__ = 'files'
+    id = db.Column(db.Integer, primary_key=True)
+    filename = db.Column(db.String(1024), nullable=False)
+    md5_filename = db.Column(db.String(1024), nullable=False)
+    size = db.Column(db.Integer, nullable=False)
+    path = db.Column(db.String(1024), nullable=False)
+    url = db.Column(db.String(1024), nullable=False)
+    create_time = db.Column(db.String(50), nullable=False)
+
+    def __init__(self, filename, md5_filename, path, url):
+        self.filename = filename
+        self.md5_filename = md5_filename
+        self.path = path
+        self.url = url
+        self.size = self.get_FileSize(path)
+        self.create_time = time.strftime("%Y-%m-%d %H:%M:%S", time.localtime())
+
+    def get_FileSize(self, filePath):
+        filePath = unicode(filePath, 'utf8')
+        fsize = os.path.getsize(filePath)
+        fsize = fsize / float(1024 * 1024)
+        return round(fsize, 2)
+
+    @staticmethod
+    def get_md5_filename(filename):
+        ext = os.path.splitext(filename)[1]
+        m = hashlib.md5()
+        m.update(filename + str(random.randint(0, 99)))
+        filename = m.hexdigest() + ext
+        return filename
 
 # if __name__ == '__main__':
 #     db.create_all()

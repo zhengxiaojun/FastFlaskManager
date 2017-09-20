@@ -56,10 +56,11 @@ def my_talbe(cols, data):
         for col in cols:
             result_table += "<td>" + str(getattr(line, col)) + "</td>"
         result_table += "<td><a href='/contact/change/" + str(line.id) + "'"
-        result_table += " class='btn btn-success' role='button'>修改</a>"
+        result_table += " class='fa fa-edit' data-toggle='tooltip' title='修改'></a>"
         result_table += " "
         result_table += "<a href='/contact/delete/" + str(line.id) + "'"
-        result_table += " class='btn btn-danger' role='button' onclick='javascript:return deletePrompt();'>删除</a></td>"
+        result_table += " class='fa fa-remove' data-toggle='tooltip' title='删除' "
+        result_table += "onclick='javascript:return deletePrompt();'></a></td>"
         result_table += "</tr>"
     result_table += "</tbody>"
     result_table += "</table>"

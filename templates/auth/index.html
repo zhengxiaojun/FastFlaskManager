@@ -14,12 +14,14 @@
 {% if current_user.role %}
 <table class="table table-hover">
     <thead>
-    <th class="active">序号</th>
-    <th class="active">用户名</th>
-    <th class="active">密码</th>
-    <th class="active">角色</th>
-    <th class="active">创建时间</th>
-    <th class='active'>操作</th>
+    <tr class="info">
+        <th class="active">序号</th>
+        <th class="active">用户名</th>
+        <th class="active">密码</th>
+        <th class="active">角色</th>
+        <th class="active">创建时间</th>
+        <th class='active'>操作</th>
+    </tr>
     </thead>
     <tbody>
 
@@ -35,9 +37,9 @@
         {% endif %}
         <td>{{ user.create_time }}</td>
         <td>
-            <a href="{{ url_for('auth.change', id=user.id) }}" class="btn btn-success" role="button">修改</a>
-            <a href="{{ url_for('auth.delete', id=user.id) }}" class="btn btn-danger" role="button"
-               onclick="javascript:return deletePrompt();">删除</a>
+            <a href="{{ url_for('auth.change', id=user.id) }}" class="fa fa-edit" data-toggle="tooltip" title="修改"></a>
+            <a href="{{ url_for('auth.delete', id=user.id) }}" class="fa fa-remove" data-toggle="tooltip" title="删除"
+               onclick="javascript:return deletePrompt();"></a>
         </td>
     </tr>
     {% endfor %}

@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 from flask_script import Manager, Server
 from run import app
-from models import db, Serverlist
+from models import *
 
 manager = Manager(app)
 manager.add_command("127.0.0.1", Server())
@@ -9,7 +9,7 @@ manager.add_command("127.0.0.1", Server())
 
 @manager.shell
 def make_shell_context():
-    return dict(app=app, db=db, Serverlist=Serverlist)
+    return dict(app=app, db=db, Filelist=Filelist)
 
 
 if __name__ == '__main__':

@@ -12,14 +12,16 @@
 
 <table class="table table-hover">
     <thead>
-    <th class="active">序号</th>
-    <th class="active">名称</th>
-    <th class="active">脚本路径</th>
-    <th class="active">描述</th>
-    <th class="active">运行状态</th>
-    <th class="active">创建时间</th>
-    <th class="active">更新时间</th>
-    <th class='active'>操作</th>
+    <tr class="info">
+        <th class="active">序号</th>
+        <th class="active">名称</th>
+        <th class="active">脚本路径</th>
+        <th class="active">描述</th>
+        <th class="active">运行状态</th>
+        <th class="active">创建时间</th>
+        <th class="active">更新时间</th>
+        <th class='active'>操作</th>
+    </tr>
     </thead>
     <tbody>
     {% for sv in svlists %}
@@ -43,13 +45,13 @@
         <td>{{ sv.update_time }}</td>
         <td>
             {% if sv.status %}
-            <a href="{{ url_for('svm.stop', id=sv.id) }}" class="btn btn-danger" role="button">停止</a>
+            <a href="{{ url_for('svm.stop', id=sv.id) }}" class="fa fa-stop" data-toggle="tooltip" title="停止"></a>
             {% else %}
-            <a href="{{ url_for('svm.start', id=sv.id) }}" class="btn btn-success" role="button">启动</a>
+            <a href="{{ url_for('svm.start', id=sv.id) }}" class="fa fa-play" data-toggle="tooltip" title="启动"></a>
             {% endif %}
-            <a href="{{ url_for('svm.change', id=sv.id) }}" class="btn btn-success" role="button">修改</a>
-            <a href="{{ url_for('svm.delete', id=sv.id) }}" class="btn btn-danger" role="button"
-               onclick="javascript:return deletePrompt();">删除</a>
+            <a href="{{ url_for('svm.change', id=sv.id) }}" class="fa fa-edit" data-toggle="tooltip" title="修改"></a>
+            <a href="{{ url_for('svm.delete', id=sv.id) }}" class="fa fa-remove" data-toggle="tooltip" title="删除"
+               onclick="javascript:return deletePrompt();"></a>
         </td>
     </tr>
     {% endfor %}

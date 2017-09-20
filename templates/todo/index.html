@@ -12,11 +12,13 @@
 
 <table class="table table-hover">
     <thead>
-    <th class="active">序号</th>
-    <th class="active">描述</th>
-    <th class="active">是否完成</th>
-    <th class="active">创建时间</th>
-    <th class='active'>操作</th>
+    <tr class="info">
+        <th class="active">序号</th>
+        <th class="active">描述</th>
+        <th class="active">是否完成</th>
+        <th class="active">创建时间</th>
+        <th class='active'>操作</th>
+    </tr>
     </thead>
     <tbody>
     {% for todo in todolists %}
@@ -25,7 +27,7 @@
     {% if todo.status %}
     <tr class="success">
         {% else %}
-    <tr class="info">
+    <tr>
         {% endif %}
         <td>{{ todo.id }}</td>
         <td>{{ todo.title }}</td>
@@ -37,10 +39,10 @@
         <td>{{ todo.create_time }}</td>
         <td>
             {% if todo.status %}
-            <a href="{{ url_for('todo.delete', id=todo.id) }}" class="btn btn-danger" role="button"
-               onclick="javascript:return deletePrompt();">删除</a>
+            <a href="{{ url_for('todo.delete', id=todo.id) }}" class="fa fa-remove" data-toggle="tooltip" title="删除"
+               onclick="javascript:return deletePrompt();"></a>
             {% else %}
-            <a href="{{ url_for('todo.change', id=todo.id) }}" class="btn btn-success" role="button">修改</a>
+            <a href="{{ url_for('todo.change', id=todo.id) }}" class="fa fa-edit" data-toggle="tooltip" title="修改"></a>
             {% endif %}
         </td>
     </tr>
