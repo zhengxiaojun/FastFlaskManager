@@ -12,7 +12,7 @@ from apps.contact import contact
 def index():
     form = ContactlistForm()
     if request.method == 'GET':
-        return render_template("contact/contacts.html", form=form)
+        return render_template("contact/index.html", form=form)
     else:
         if form.validate_on_submit():
             print form.email.data

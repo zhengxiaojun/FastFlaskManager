@@ -37,3 +37,10 @@ class TodoListForm(FlaskForm):
     title = StringField('标题', validators=[DataRequired(), Length(1, 64)], render_kw={"placeholder": "请输入标题"})
     status = RadioField('是否完成', validators=[DataRequired()], choices=[("1", '是'), ("0", '否')])
     submit = SubmitField('提交')
+
+
+class ServerListForm(FlaskForm):
+    name = StringField('名称', validators=[DataRequired(), Length(1, 64)], render_kw={"placeholder": "请输入名称"})
+    path = StringField('路径', validators=[DataRequired(), Length(1, 64)], render_kw={"placeholder": "请输入路径"})
+    description = StringField('描述', validators=[Length(1, 64)], render_kw={"placeholder": "请输入描述"})
+    submit = SubmitField('提交')

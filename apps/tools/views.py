@@ -5,10 +5,10 @@ from ftxml import *
 from jsoncompare import jsoncompare
 import hashlib, json
 
-from apps.tools import vxml
+from apps.tools import tool
 
 
-@vxml.route('/formatXml', methods=['GET', 'POST'])
+@tool.route('/formatXml', methods=['GET', 'POST'])
 @login_required
 def formatXml():
     if request.method == 'GET':
@@ -24,13 +24,13 @@ def formatXml():
             return fdata
 
 
-@vxml.route('/widget', methods=['GET'])
+@tool.route('/widget', methods=['GET'])
 @login_required
 def widget():
     return render_template('tools/widget.html')
 
 
-@vxml.route('/genmd5', methods=['POST'])
+@tool.route('/genmd5', methods=['POST'])
 @login_required
 def genmd5():
     a = request.form['inpmd5']
@@ -46,7 +46,7 @@ def genmd5():
                    md5upe16=result['md5upe16'])
 
 
-@vxml.route('/comparejson', methods=['GET', 'POST'])
+@tool.route('/comparejson', methods=['GET', 'POST'])
 @login_required
 def comparejson():
     if request.method == 'GET':
@@ -70,7 +70,7 @@ def comparejson():
             return str(result)
 
 
-@vxml.route('/formatjson', methods=['POST'])
+@tool.route('/formatjson', methods=['POST'])
 @login_required
 def formatjson():
     data = request.form.get('data', '')

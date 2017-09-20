@@ -39,7 +39,7 @@ def index():
         page = request.args.get('page', 1, type=int)
         userlist = User.query.paginate(page, 10, False).items
         pagination = User.query.paginate(page, 10, True)
-        return render_template('auth/users.html', userlist=userlist, form=form, pagination=pagination)
+        return render_template('auth/index.html', userlist=userlist, form=form, pagination=pagination)
     else:
         if form.validate_on_submit():
             m = hashlib.md5()

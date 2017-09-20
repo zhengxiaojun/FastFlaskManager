@@ -15,7 +15,7 @@ def index():
         page = request.args.get('page', 1, type=int)
         todolists = Todolist.query.paginate(page, 10, False).items
         pagination = Todolist.query.paginate(page, 10, True)
-        return render_template('todo/todolist.html', todolists=todolists, form=form, pagination=pagination)
+        return render_template('todo/index.html', todolists=todolists, form=form, pagination=pagination)
     else:
         if form.validate_on_submit():
             todo = Todolist(current_user.id, form.title.data, form.status.data)
@@ -40,14 +40,14 @@ def delete(id):
 @todo.route('/change/<int:id>', methods=['GET', 'POST'])
 @login_required
 def change(id):
+    form = TodoListForm()
     if request.method == 'GET':
         todolist = Todolist.query.filter_by(id=id).first_or_404()
-        form = TodoListForm()
+
         form.title.data = todolist.title
         form.status.data = str(todolist.status)
         return render_template('todo/modify.html', form=form)
     else:
-        form = TodoListForm()
         if form.validate_on_submit():
             todolist = Todolist.query.filter_by(id=id).first_or_404()
             todolist.title = form.title.data

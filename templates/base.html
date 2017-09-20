@@ -365,6 +365,10 @@
                         <li class=""><a href="{{ url_for('todo.index') }}" id="todolist"><i class="fa fa-circle-o"></i>
                             待办事项</a>
                         </li>
+                        <li class=""><a href="{{ url_for('svm.index') }}" id="svindex"><i
+                                class="fa fa-circle-o"></i>
+                            服务管理</a>
+                        </li>
                         <li><a href="#"><i class="fa fa-circle-o"></i> 其它</a></li>
                     </ul>
                 </li>
@@ -390,13 +394,13 @@
                         </span>
                     </a>
                     <ul class="treeview-menu">
-                        <li class=""><a href="{{ url_for('vxml.formatXml') }}" id="ftxml"><i class="fa fa-circle-o"></i>
+                        <li class=""><a href="{{ url_for('tool.formatXml') }}" id="ftxml"><i class="fa fa-circle-o"></i>
                             格式化XML</a>
                         </li>
-                        <li class=""><a href="{{ url_for('vxml.widget') }}" id="md5time"><i class="fa fa-circle-o"></i>
+                        <li class=""><a href="{{ url_for('tool.widget') }}" id="md5time"><i class="fa fa-circle-o"></i>
                             md5加密\时间戳</a>
                         </li>
-                        <li class=""><a href="{{ url_for('vxml.comparejson') }}" id="cmpjson"><i
+                        <li class=""><a href="{{ url_for('tool.comparejson') }}" id="cmpjson"><i
                                 class="fa fa-circle-o"></i>
                             比较Json</a>
                         </li>

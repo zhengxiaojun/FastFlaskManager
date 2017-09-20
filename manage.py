@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 from flask_script import Manager, Server
 from run import app
-from models import db, User
+from models import db, Serverlist
 
 manager = Manager(app)
 manager.add_command("127.0.0.1", Server())
@@ -9,8 +9,21 @@ manager.add_command("127.0.0.1", Server())
 
 @manager.shell
 def make_shell_context():
-    return dict(app=app, db=db, User=User)
+    return dict(app=app, db=db, Serverlist=Serverlist)
 
 
 if __name__ == '__main__':
     manager.run()
+
+
+# run cmd in shell
+
+# python manage.py shell
+
+# sqlite commands
+
+# sqlite3 ./database/mypage.db
+# .databases
+# .tables
+# .schema <table>
+# .quit

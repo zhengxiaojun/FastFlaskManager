@@ -91,5 +91,24 @@ class Todolist(db.Model):
         self.status = status
         self.create_time = time.strftime("%Y-%m-%d %H:%M:%S", time.localtime())
 
+
+class Serverlist(db.Model):
+    __tablename__ = 'serverlist'
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(1024), nullable=False)
+    path = db.Column(db.String(1024), nullable=False)
+    description = db.Column(db.String(1024), nullable=False)
+    status = db.Column(db.Integer, nullable=False)
+    create_time = db.Column(db.String(50), nullable=False)
+    update_time = db.Column(db.String(50), nullable=False)
+
+    def __init__(self, name, path, description, status):
+        self.name = name
+        self.path = path
+        self.description = description
+        self.status = status
+        self.create_time = time.strftime("%Y-%m-%d %H:%M:%S", time.localtime())
+        self.update_time = time.strftime("%Y-%m-%d %H:%M:%S", time.localtime())
+
 # if __name__ == '__main__':
 #     db.create_all()
