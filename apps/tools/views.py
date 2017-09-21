@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 from flask import render_template, request, jsonify, redirect, url_for, flash
-from flask_login import login_required
+from flask_login import login_required, current_user
 from ftxml import *
 from models import *
 from forms import *
@@ -108,6 +108,7 @@ def upload():
             db.session.add(file)
             db.session.commit()
             flash('您上传了一个文件!')
+            Notifications.notify(current_user.username, u"文件", u"上传了一个新文件")
         else:
             flash(form.errors)
         return redirect(url_for('tool.upload'))
@@ -121,4 +122,5 @@ def remove(id):
     db.session.delete(file)
     db.session.commit()
     flash('您成功删除一个文件!')
+    Notifications.notify(current_user.username, u"文件", u"删除了一个文件")
     return redirect(url_for('tool.upload'))

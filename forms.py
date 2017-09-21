@@ -51,3 +51,8 @@ class ServerListForm(FlaskForm):
 class UploadForm(FlaskForm):
     file = FileField('请上传', validators=[FileRequired(), FileAllowed(myfile, '文件格式不对!')])
     submit = SubmitField('上传')
+
+
+class NotifyForm(FlaskForm):
+    n_type = StringField('类别')
+    content = StringField('内容')

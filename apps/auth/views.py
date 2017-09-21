@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 from flask import render_template, request, flash, redirect, url_for
-from flask_login import login_required, login_user, logout_user
+from flask_login import login_required, login_user, logout_user, current_user
 from forms import *
 from models import *
 from apps.auth import auth
@@ -48,8 +48,10 @@ def index():
             db.session.add(user)
             db.session.commit()
             flash('您添加了一个新用户!')
+            Notifications.notify(current_user.username, u"权限", u"添加了一个新用户" + form.username.data)
         else:
             flash(form.errors)
+            Notifications.notify(current_user.username, u"权限", u"添加用户错误: " + str(form.errors))
         return redirect(url_for('auth.index'))
 
 
@@ -60,6 +62,7 @@ def delete(id):
     db.session.delete(user)
     db.session.commit()
     flash('您成功删除一个新用户!')
+    Notifications.notify(current_user.username, u"权限", u"删除了一个新用户" + user.username)
     return redirect(url_for('auth.index'))
 
 
@@ -83,6 +86,8 @@ def change(id):
             user.role = form.role.data
             db.session.commit()
             flash('您修改了一个用户!')
+            Notifications.notify(current_user.username, u"权限", u"修改了一个新用户" + user.username)
         else:
             flash(form.errors)
+            Notifications.notify(current_user.username, u"权限", u"修改用户错误: " + str(form.errors))
         return redirect(url_for('auth.index'))

@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 from flask import render_template, request, flash, redirect, url_for
-from flask_login import login_required
+from flask_login import login_required, current_user
 from forms import *
 from models import *
 from mypagination import *
@@ -20,8 +20,10 @@ def index():
             db.session.add(newcontact)
             db.session.commit()
             flash('您成功添加一个联系.')
+            Notifications.notify(current_user.username, u"通讯", u"添加了一个新联系")
         else:
             flash(form.errors)
+            Notifications.notify(current_user.username, u"通讯", u"添加联系错误: " + str(form.errors))
         return redirect(url_for('contact.index'))
 
 
@@ -58,6 +60,7 @@ def delete(id):
     db.session.delete(ct)
     db.session.commit()
     flash('您成功删除一个联系人!')
+    Notifications.notify(current_user.username, u"通讯", u"删除了一个联系")
     return redirect(url_for('contact.index'))
 
 
@@ -82,6 +85,8 @@ def change(id):
             ct.email = form.email.data
             db.session.commit()
             flash('您修改了一个联系人!')
+            Notifications.notify(current_user.username, u"通讯", u"修改了一个联系")
         else:
             flash(form.errors)
+            Notifications.notify(current_user.username, u"通讯", u"修改联系错误: " + str(form.errors))
         return redirect(url_for('contact.index'))

@@ -65,7 +65,7 @@
                     <li class="dropdown messages-menu">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                             <i class="fa fa-envelope-o"></i>
-                            <span class="label label-success">4</span>
+                            <!--<span class="label label-success">4</span>-->
                         </a>
                         <ul class="dropdown-menu">
                             <li class="header">You have 4 messages</li>
@@ -149,53 +149,16 @@
                         </ul>
                     </li>
                     <!-- Notifications: style can be found in dropdown.less -->
-                    <li class="dropdown notifications-menu">
+                    <li class="dropdown notifications-menu" id="notifications-menu">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                             <i class="fa fa-bell-o"></i>
-                            <span class="label label-warning">10</span>
                         </a>
-                        <ul class="dropdown-menu">
-                            <li class="header">You have 10 notifications</li>
-                            <li>
-                                <!-- inner menu: contains the actual data -->
-                                <ul class="menu">
-                                    <li>
-                                        <a href="#">
-                                            <i class="fa fa-users text-aqua"></i> 5 new members joined today
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="#">
-                                            <i class="fa fa-warning text-yellow"></i> Very long description here that
-                                            may not fit into the
-                                            page and may cause design problems
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="#">
-                                            <i class="fa fa-users text-red"></i> 5 new members joined
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="#">
-                                            <i class="fa fa-shopping-cart text-green"></i> 25 sales made
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="#">
-                                            <i class="fa fa-user text-red"></i> You changed your username
-                                        </a>
-                                    </li>
-                                </ul>
-                            </li>
-                            <li class="footer"><a href="#">View all</a></li>
-                        </ul>
                     </li>
                     <!-- Tasks: style can be found in dropdown.less -->
                     <li class="dropdown tasks-menu">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                             <i class="fa fa-flag-o"></i>
-                            <span class="label label-danger">9</span>
+                            <!--<span class="label label-danger">9</span>-->
                         </a>
                         <ul class="dropdown-menu">
                             <li class="header">You have 9 tasks</li>
@@ -309,7 +272,8 @@
                             <!-- Menu Footer-->
                             <li class="user-footer">
                                 <div class="pull-left">
-                                    <a href="{{ url_for('auth.index') }}" class="btn btn-default btn-flat">修改密码</a>
+                                    <a href="{{ url_for('auth.change',id=current_user.id)}}"
+                                       class="btn btn-default btn-flat">修改密码</a>
                                 </div>
                                 <div class="pull-right">
                                     <a href="{{ url_for('auth.logout') }}" class="btn btn-default btn-flat">退出</a>
@@ -376,7 +340,7 @@
                     <a href="#">
                         <i class="fa fa-files-o"></i> <span>通讯簿</span>
                         <span class="pull-right-container">
-                            <span class="label label-primary pull-right">4</span>
+                            <i class="fa fa-angle-left pull-right"></i>
                         </span>
                     </a>
                     <ul class="treeview-menu">
@@ -390,7 +354,7 @@
                     <a href="#">
                         <i class="fa fa-files-o"></i> <span>常用工具</span>
                         <span class="pull-right-container">
-                            <span class="label label-primary pull-right">2</span>
+                            <i class="fa fa-angle-left pull-right"></i>
                         </span>
                     </a>
                     <ul class="treeview-menu">
@@ -415,12 +379,26 @@
                     <a href="#">
                         <i class="fa fa-files-o"></i> <span>用户管理</span>
                         <span class="pull-right-container">
-                            <span class="label label-primary pull-right">4</span>
+                            <i class="fa fa-angle-left pull-right"></i>
                         </span>
                     </a>
                     <ul class="treeview-menu">
                         <li class=""><a href="{{ url_for('auth.index') }}" id="userlist"><i class="fa fa-circle-o"></i>
                             用户列表</a>
+                        </li>
+                        <li><a href="#"><i class="fa fa-circle-o"></i> 其它</a></li>
+                    </ul>
+                </li>
+                <li class="treeview">
+                    <a href="#">
+                        <i class="fa fa-files-o"></i> <span>消息通知</span>
+                        <span class="pull-right-container">
+                            <i class="fa fa-angle-left pull-right"></i>
+                        </span>
+                    </a>
+                    <ul class="treeview-menu">
+                        <li class=""><a href="{{ url_for('ntfy.index') }}" id="ntfylist"><i class="fa fa-circle-o"></i>
+                            通知列表</a>
                         </li>
                         <li><a href="#"><i class="fa fa-circle-o"></i> 其它</a></li>
                     </ul>
@@ -644,7 +622,7 @@
                     <div class="form-group">
                         <label class="control-sidebar-subheading">
                             Turn off notifications
-                            <input type="checkbox" class="pull-right">
+                            <input type="checkbox" class="pull-right" id="sNotify" onclick="switchNotify();">
                         </label>
                     </div>
                     <!-- /.form-group -->
@@ -683,16 +661,20 @@
 
 <!-- sidebar active js -->
 <script>
-    var url = window.location.href;
-    // for sidebar menu entirely but not cover treeview
-    $('ul.sidebar-menu a').filter(function () {
-        return this.href == url;
-    }).parent().addClass('active');
+    $(function () {
+        var url = window.location.href;
+        // for sidebar menu entirely but not cover treeview
+        $('ul.sidebar-menu a').filter(function () {
+            return this.href == url;
+        }).parent().addClass('active');
 
-    // for treeview
-    $('ul.treeview-menu a').filter(function () {
-        return this.href == url;
-    }).closest('.treeview').addClass('active');
+        // for treeview
+        $('ul.treeview-menu a').filter(function () {
+            return this.href == url;
+        }).closest('.treeview').addClass('active');
+    });
+
+    ntfy_poll();
 </script>
 {% block js %}{% endblock %}
 </body>

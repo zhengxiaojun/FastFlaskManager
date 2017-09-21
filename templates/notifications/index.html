@@ -1,0 +1,61 @@
+{% extends "base.html" %}
+{% import "bootstrap/wtf.html" as wtf %}
+
+{% block title %}通知列表{% endblock %}
+{% block endpoint %}通知列表{% endblock %}
+
+{% block page_content %}
+<!-- Button trigger modal -->
+
+<table class="table table-hover">
+    <thead>
+    <tr class="info">
+        <th class="active">序号</th>
+        <th class="active">用户</th>
+        <th class="active">类别</th>
+        <th class="active">内容</th>
+        <th class="active">状态</th>
+        <th class="active">创建时间</th>
+        <th class="active">操作</th>
+    </tr>
+    </thead>
+    <tbody>
+    {% for notfy in notfys %}
+
+    <!-- tr -->
+    {% if notfy.is_read %}
+    <tr class="success">
+        {% else %}
+    <tr>
+        {% endif %}
+        <td>{{ notfy.id }}</td>
+        <td>{{ notfy.username }}</td>
+        <td>{{ notfy.n_type }}</td>
+        <td>{{ notfy.content }}</td>
+        {% if notfy.is_read %}
+        <td>已读</td>
+        {% else %}
+        <td>未读</td>
+        {% endif %}
+        <td>{{ notfy.create_time }}</td>
+        <td>
+            <a href="{{ url_for('ntfy.viewfile', id=notfy.id) }}" class="fa fa-eye" data-toggle="tooltip"
+               title="查看"></a>
+            <a href="{{ url_for('ntfy.delete', id=notfy.id) }}" class="fa fa-remove" data-toggle="tooltip" title="删除"
+               onclick="javascript:return deletePrompt();"></a>
+        </td>
+    </tr>
+    {% endfor %}
+
+    </tbody>
+</table>
+
+<div>
+    {% import '_macros.html' as macros %}
+    {% if pagination %}
+    {{ macros.render_pagination(pagination,'ntfy.index') }}
+    {% endif %}
+</div>
+
+
+{% endblock %}

@@ -22,8 +22,10 @@ def index():
             db.session.add(todo)
             db.session.commit()
             flash('您添加了一个事件!')
+            Notifications.notify(current_user.username, u"待办", u"添加了一个新事件")
         else:
             flash(form.errors)
+            Notifications.notify(current_user.username, u"待办", u"添加事件错误: " + str(form.errors))
         return redirect(url_for('todo.index'))
 
 
@@ -34,6 +36,7 @@ def delete(id):
     db.session.delete(todolist)
     db.session.commit()
     flash('您成功删除一个事件!')
+    Notifications.notify(current_user.username, u"待办", u"删除了一个事件")
     return redirect(url_for('todo.index'))
 
 
@@ -54,6 +57,8 @@ def change(id):
             todolist.status = form.status.data
             db.session.commit()
             flash('您修改了一个事件!')
+            Notifications.notify(current_user.username, u"待办", u"修改了一个事件")
         else:
             flash(form.errors)
+            Notifications.notify(current_user.username, u"待办", u"添加事件错误: " + str(form.errors))
         return redirect(url_for('todo.index'))

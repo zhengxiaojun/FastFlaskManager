@@ -1,6 +1,9 @@
 /**
  * Created by jack_zheng on 17/8/29.
  */
+var flag = null;
+var poll_flag = null;
+
 function queryForPages(page) {
     $.post("getusers", {"page": page}, function (rp) {
         document.getElementById("tbody").innerHTML = rp;
@@ -162,4 +165,32 @@ function formatjson(obj, data) {
     $.post("formatjson", {"data": data}, function (rp) {
         obj.setValue(rp);
     });
+}
+
+function poll() {
+    $.post('/ntfy/poll', {}, function (rp) {
+            if (rp != "0") {
+                document.getElementById("notifications-menu").innerHTML = rp;
+            } else {
+                nf_view = "<a href='#' class='dropdown-toggle' data-toggle='dropdown'>";
+                nf_view += "<i class='fa fa-bell-o'></i>";
+                nf_view += "</a>";
+                document.getElementById("notifications-menu").innerHTML = nf_view;
+            }
+        }
+    );
+}
+
+function ntfy_poll() {
+    poll_flag = self.setInterval("poll()", 5000);
+}
+
+function switchNotify() {
+    if ($("input[id='sNotify']").prop("checked") == true) {
+        //当前为选中状态
+        clearInterval(poll_flag);
+    } else {
+        //当前为不选中状态
+        ntfy_poll();
+    }
 }

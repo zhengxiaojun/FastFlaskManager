@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 from flask import render_template, request, flash, redirect, url_for
-from flask_login import login_required
+from flask_login import login_required, current_user
 from models import *
 from forms import *
 from apps.service import svm
@@ -23,8 +23,10 @@ def index():
             db.session.add(svl)
             db.session.commit()
             flash('您添加了一个服务!')
+            Notifications.notify(current_user.username, u"服务", u"添加了一个新服务")
         else:
             flash(form.errors)
+            Notifications.notify(current_user.username, u"服务", u"添加服务错误: " + str(form.errors))
         return redirect(url_for('svm.index'))
 
 
@@ -47,8 +49,10 @@ def change(id):
             svl.update_time = time.strftime("%Y-%m-%d %H:%M:%S", time.localtime())
             db.session.commit()
             flash('您修改了一个服务!')
+            Notifications.notify(current_user.username, u"服务", u"修改了一个服务")
         else:
             flash(form.errors)
+            Notifications.notify(current_user.username, u"服务", u"修改服务错误: " + str(form.errors))
         return redirect(url_for('svm.index'))
 
 
@@ -59,6 +63,7 @@ def delete(id):
     db.session.delete(svl)
     db.session.commit()
     flash('您成功删除一个服务!')
+    Notifications.notify(current_user.username, u"服务", u"删除了一个服务")
     return redirect(url_for('svm.index'))
 
 
@@ -77,6 +82,7 @@ def start(id):
         result = str(err)
     finally:
         flash(result)
+        Notifications.notify(current_user.username, u"服务", str(result))
 
     return redirect(url_for('svm.index'))
 
@@ -96,5 +102,6 @@ def stop(id):
         result = str(err)
     finally:
         flash(result)
+        Notifications.notify(current_user.username, u"服务", str(result))
 
     return redirect(url_for('svm.index'))

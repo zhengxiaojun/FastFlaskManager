@@ -7,6 +7,7 @@ from apps.contact import contact
 from apps.todo import todo
 from apps.tools import tool
 from apps.service import svm
+from apps.notifications import ntfy
 from apis.user import authapi
 import sys
 
@@ -18,6 +19,7 @@ app.register_blueprint(contact, url_prefix='/contact')
 app.register_blueprint(todo, url_prefix='/todo')
 app.register_blueprint(tool, url_prefix='/tool')
 app.register_blueprint(svm, url_prefix='/svm')
+app.register_blueprint(ntfy, url_prefix='/ntfy')
 app.register_blueprint(authapi, url_prefix='/api')
 
 

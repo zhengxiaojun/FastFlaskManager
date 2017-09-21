@@ -143,5 +143,25 @@ class Filelist(db.Model):
         filename = m.hexdigest() + ext
         return filename
 
-# if __name__ == '__main__':
-#     db.create_all()
+
+class Notifications(db.Model):
+    __tablename__ = 'notifications'
+    id = db.Column(db.Integer, primary_key=True)
+    username = db.Column(db.String(1024), nullable=False)
+    n_type = db.Column(db.String(1024), nullable=False)
+    content = db.Column(db.String(1024), nullable=False)
+    is_read = db.Column(db.Integer, nullable=False)
+    create_time = db.Column(db.String(50), nullable=False)
+
+    def __init__(self, username, n_type, content):
+        self.username = username
+        self.n_type = n_type
+        self.content = content
+        self.is_read = 0
+        self.create_time = time.strftime("%Y-%m-%d %H:%M:%S", time.localtime())
+
+    @staticmethod
+    def notify(username, n_type, content):
+        nf = Notifications(username, n_type, content)
+        db.session.add(nf)
+        db.session.commit()

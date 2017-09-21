@@ -9,7 +9,7 @@ manager.add_command("127.0.0.1", Server())
 
 @manager.shell
 def make_shell_context():
-    return dict(app=app, db=db, Filelist=Filelist)
+    return dict(app=app, db=db, Notifications=Notifications)
 
 
 if __name__ == '__main__':
