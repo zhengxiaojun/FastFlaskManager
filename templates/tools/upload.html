@@ -10,7 +10,7 @@
 <div class="row">
     <div class="col-lg-12 col-xs-12">
         <div class="form-group">
-            {{ wtf.quick_form(form, form_type="horizontal",button_map={'submit':'primary'}) }}
+            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal"> 上传文件</button>
         </div>
     </div>
 </div>
@@ -22,7 +22,7 @@
                 <tr class="info">
                     <th class="active">序号</th>
                     <th class="active">名称</th>
-                    <th class="active">大小</th>
+                    <th class="active">大小(MB)</th>
                     <th class="active">链接地址</th>
                     <th class="active">上传时间</th>
                     <th class='active'>操作</th>
@@ -59,4 +59,27 @@
         </div>
     </div>
 </div>
+
+
+<!-- Modal -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span
+                        aria-hidden="true">&times;</span><span
+                        class="sr-only">Close</span></button>
+                <h4 class="modal-title" id="myModalLabel" align="center">上传文件</h4>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-8 col-md-offset-2">
+                        {{ wtf.quick_form(form, form_type="horizontal",button_map={'submit':'primary'}) }}
+                    </div>
+                </div>
+            </div> <!-- modal body -->
+        </div>
+    </div>
+</div>
+
 {% endblock %}

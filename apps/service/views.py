@@ -13,8 +13,9 @@ import time, subprocess
 def index():
     form = ServerListForm()
     if request.method == 'GET':
-        svlists = Serverlist.query.paginate(1, 10, False).items
-        pagination = Serverlist.query.paginate(1, 10, True)
+        page = request.args.get('page', 1, type=int)
+        svlists = Serverlist.query.paginate(page, 10, False).items
+        pagination = Serverlist.query.paginate(page, 10, True)
         return render_template('service/index.html', svlists=svlists, form=form, pagination=pagination)
     else:
         if form.validate_on_submit():

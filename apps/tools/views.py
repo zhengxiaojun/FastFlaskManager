@@ -93,8 +93,9 @@ def formatjson():
 def upload():
     form = UploadForm()
     if request.method == 'GET':
-        files = Filelist.query.paginate(1, 10, False).items
-        pagination = Filelist.query.paginate(1, 10, True)
+        page = request.args.get('page', 1, type=int)
+        files = Filelist.query.paginate(page, 5, False).items
+        pagination = Filelist.query.paginate(page, 5, True)
         return render_template('tools/upload.html', form=form, files=files, pagination=pagination)
     else:
         if form.validate_on_submit():
