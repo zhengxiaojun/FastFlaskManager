@@ -10,8 +10,8 @@ from apps.notifications import ntfy
 @login_required
 def index():
     page = request.args.get('page', 1, type=int)
-    notfys = Notifications.query.paginate(page, 10, False).items
-    pagination = Notifications.query.paginate(page, 10, True)
+    notfys = Notifications.query.order_by(db.desc(Notifications.create_time)).paginate(page, 10, False).items
+    pagination = Notifications.query.order_by(db.desc(Notifications.create_time)).paginate(page, 10, True)
 
     return render_template('notifications/index.html', notfys=notfys, pagination=pagination)
 

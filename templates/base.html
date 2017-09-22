@@ -622,7 +622,8 @@
                     <div class="form-group">
                         <label class="control-sidebar-subheading">
                             Turn off notifications
-                            <input type="checkbox" class="pull-right" id="sNotify" onclick="switchNotify();">
+                            <input type="checkbox" class="pull-right" id="sNotify" onclick="switchNotify();"
+                                   checked="checked">
                         </label>
                     </div>
                     <!-- /.form-group -->
@@ -673,8 +674,6 @@
             return this.href == url;
         }).closest('.treeview').addClass('active');
     });
-
-    ntfy_poll();
 </script>
 {% block js %}{% endblock %}
 </body>
