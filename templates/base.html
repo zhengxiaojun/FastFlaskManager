@@ -400,6 +400,9 @@
                         <li class=""><a href="{{ url_for('ntfy.index') }}" id="ntfylist"><i class="fa fa-circle-o"></i>
                             通知列表</a>
                         </li>
+                        <li class=""><a href="{{ url_for('msg.index') }}" id="msglist"><i class="fa fa-circle-o"></i>
+                            消息</a>
+                        </li>
                         <li><a href="#"><i class="fa fa-circle-o"></i> 其它</a></li>
                     </ul>
                 </li>
@@ -655,6 +658,8 @@
 <script type="text/javascript" src="{{ url_for('static',filename='js/app.min.js') }}"></script>
 <!-- AdminLTE for demo purposes -->
 <script type="text/javascript" src="{{ url_for('static',filename='js/demo.js') }}"></script>
+<!-- socket io js -->
+<script type="text/javascript" src="{{ url_for('static',filename='js/socket.io.js') }}"></script>
 <!-- Common JS-->
 <script type="text/javascript" src="{{ url_for('static',filename='js/my.js') }}"></script>
 
@@ -676,5 +681,6 @@
     });
 </script>
 {% block js %}{% endblock %}
+
 </body>
 </html>

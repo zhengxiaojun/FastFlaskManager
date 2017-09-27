@@ -4,6 +4,7 @@ from flask_bootstrap import Bootstrap
 from flask_sqlalchemy import SQLAlchemy
 from flask_login import LoginManager
 from flask_uploads import UploadSet, configure_uploads, IMAGES
+from flask_socketio import SocketIO
 from models import User
 import os
 
@@ -34,6 +35,9 @@ db.init_app(app)
 # 登录管理
 login_manager.init_app(app)
 login_manager.login_view = "auth.login"
+
+# 消息
+socketio = SocketIO(app)
 
 
 @login_manager.user_loader

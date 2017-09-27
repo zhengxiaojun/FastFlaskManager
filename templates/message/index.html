@@ -1,0 +1,67 @@
+{% extends "base.html" %}
+{% import "bootstrap/wtf.html" as wtf %}
+
+{% block title %}消息{% endblock %}
+{% block endpoint %}消息{% endblock %}
+
+{% block page_content %}
+
+
+<div class="row">
+    <div class="col-lg-12 col-xs-12">
+        <div class="form-group">
+            <!--<input type="button" id="open" onclick="initSocket();" class="btn btn-primary" value="连接">-->
+            <!--<form id="disconnect" method="POST" action="#">-->
+            <input type="button" value="断开连接" id="disconnect" class="btn btn-primary">
+            <!--</form>-->
+        </div>
+        <div class="form-group">
+            <form id="emit" method="POST" action='#'>
+                <input type="text" class="form-control" name="emit_data" id="emit_data" placeholder="Message">
+                <input type="submit" value="发送消息" class="btn btn-primary">
+            </form>
+        </div>
+        <div class="form-group">
+            <form id="broadcast" method="POST" action='#'>
+                <input type="text" class="form-control" name="broadcast_data" id="broadcast_data" placeholder="Message">
+                <input type="submit" value="广播通知" class="btn btn-primary">
+            </form>
+        </div>
+        <div class="form-group">
+            <div id="log"></div>
+        </div>
+    </div>
+</div>
+
+
+{% endblock %}
+
+
+{% block js %}
+<script type="text/javascript" charset="utf-8">
+    $(document).ready(function () {
+        var socket = io.connect('http://' + document.domain + ':' + location.port + '/msg/test');
+
+        socket.on('my response', function (msg) {
+            $('#log').append('<p>' + msg.time + ': ' + msg.data + '</p>');
+        });
+        $('form#emit').submit(function (event) {
+            socket.emit('my event', {data: $('#emit_data').val()});
+            return false;
+        });
+        $('form#broadcast').submit(function (event) {
+            socket.emit('my broadcast event', {data: $('#broadcast_data').val()});
+            return false;
+        });
+        // $('form#disconnect').submit(function (event) {
+        //     socket.emit('disconnect_request');
+        //     return false;
+        // });
+        $('#disconnect').click(function (event) {
+            socket.emit('disconnect_request');
+            return false;
+        });
+    });
+</script>
+
+{% endblock %}

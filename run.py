@@ -1,13 +1,14 @@
 # -*- coding: utf-8 -*-
 from flask import render_template
 from flask_login import login_required
-from ext import app
+from ext import app, socketio
 from apps.auth import auth
 from apps.contact import contact
 from apps.todo import todo
 from apps.tools import tool
 from apps.service import svm
 from apps.notifications import ntfy
+from apps.message import msg
 from apis.user import authapi
 import sys
 
@@ -21,6 +22,7 @@ app.register_blueprint(tool, url_prefix='/tool')
 app.register_blueprint(svm, url_prefix='/svm')
 app.register_blueprint(ntfy, url_prefix='/ntfy')
 app.register_blueprint(authapi, url_prefix='/api')
+app.register_blueprint(msg, url_prefix='/msg')
 
 
 @app.route('/', methods=["GET"])
@@ -31,4 +33,4 @@ def index():
 
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    socketio.run(app, debug=True)
