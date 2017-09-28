@@ -21,12 +21,14 @@ def index():
 
 @socketio.on('my event', namespace=namespace)
 def test_message(message):
-    emit('my response', {'data': message['data'], 'time': str(time.strftime("%Y-%m-%d %H:%M:%S", time.localtime()))})
+    emit('my response',
+         {'data': message['data'], 'time': str(time.strftime("%Y-%m-%d %H:%M:%S", time.localtime()))})
 
 
 @socketio.on('my broadcast event', namespace=namespace)
 def test_message(message):
-    emit('my response', {'data': message['data'], 'time': str(time.strftime("%Y-%m-%d %H:%M:%S", time.localtime()))},
+    emit('my response',
+         {'data': message['data'], 'time': str(time.strftime("%Y-%m-%d %H:%M:%S", time.localtime()))},
          broadcast=True)
 
 
@@ -40,7 +42,6 @@ def disconnect_request():
 @socketio.on('connect', namespace=namespace)
 def test_connect():
     emit('my response', {'data': '已连接.', 'time': str(time.strftime("%Y-%m-%d %H:%M:%S", time.localtime()))})
-
 
 # @socketio.on('disconnect', namespace=namespace)
 # def test_disconnect():
