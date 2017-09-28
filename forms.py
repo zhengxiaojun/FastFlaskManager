@@ -2,7 +2,7 @@
 from __future__ import unicode_literals
 from flask_wtf import FlaskForm
 from flask_wtf.file import FileField, FileRequired, FileAllowed
-from wtforms import RadioField, SubmitField, StringField, PasswordField
+from wtforms import *
 from wtforms.validators import DataRequired, Length
 from ext import myfile
 
@@ -44,7 +44,7 @@ class TodoListForm(FlaskForm):
 class ServerListForm(FlaskForm):
     name = StringField('名称', validators=[DataRequired(), Length(1, 64)], render_kw={"placeholder": "请输入名称"})
     path = StringField('路径', validators=[DataRequired(), Length(1, 64)], render_kw={"placeholder": "请输入路径"})
-    description = StringField('描述', validators=[Length(1, 64)], render_kw={"placeholder": "请输入描述"})
+    description = TextAreaField('描述', validators=[Length(1, 64)], render_kw={"placeholder": "请输入描述"})
     submit = SubmitField('提交')
 
 
@@ -54,5 +54,5 @@ class UploadForm(FlaskForm):
 
 
 class NotifyForm(FlaskForm):
-    n_type = StringField('类别')
-    content = StringField('内容')
+    n_type = StringField('类别', render_kw={'readonly': True})
+    content = TextAreaField('内容', render_kw={'readonly': True})
