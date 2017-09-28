@@ -2,7 +2,9 @@
 {% import "bootstrap/wtf.html" as wtf %}
 
 {% block title %}格式化XML{% endblock %}
-{% block endpoint %}格式化XML{% endblock %}
+{% block endpoint %}
+<a href="{{ url_for('tool.formatXml') }}" id="ftxml"><i class="fa fa-indent"></i>格式化XML</a>
+{% endblock %}
 
 {% block page_content %}
 

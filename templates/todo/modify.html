@@ -2,7 +2,9 @@
 {% import "bootstrap/wtf.html" as wtf %}
 
 {% block title %}修改事件{% endblock %}
-{% block endpoint %}修改事件{% endblock %}
+{% block endpoint %}
+<a href="{{ url_for('todo.index') }}" id="todolist"><i class="fa fa-hand-o-down"></i>待办事项</a>
+{% endblock %}
 
 {% block page_content %}
 

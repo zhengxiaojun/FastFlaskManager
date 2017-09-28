@@ -2,7 +2,9 @@
 {% import "bootstrap/wtf.html" as wtf %}
 
 {% block title %}待办事项{% endblock %}
-{% block endpoint %}待办事项{% endblock %}
+{% block endpoint %}
+<a href="#" id="todolist"><i class="fa fa-hand-o-down"></i>待办事项</a>
+{% endblock %}
 
 {% block page_content %}
 <!-- Button trigger modal -->
@@ -39,7 +41,7 @@
         <td>{{ todo.create_time }}</td>
         <td>
             {% if todo.status %}
-            <a href="{{ url_for('todo.delete', id=todo.id) }}" class="fa fa-remove" data-toggle="tooltip" title="删除"
+            <a href="{{ url_for('todo.delete', id=todo.id) }}" class="fa fa-trash-o" data-toggle="tooltip" title="删除"
                onclick="javascript:return deletePrompt();"></a>
             {% else %}
             <a href="{{ url_for('todo.change', id=todo.id) }}" class="fa fa-edit" data-toggle="tooltip" title="修改"></a>

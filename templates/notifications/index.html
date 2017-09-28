@@ -2,7 +2,9 @@
 {% import "bootstrap/wtf.html" as wtf %}
 
 {% block title %}通知列表{% endblock %}
-{% block endpoint %}通知列表{% endblock %}
+{% block endpoint %}
+<a href="#" id="ntfylist"><i class="fa fa-bell"></i>通知列表</a>
+{% endblock %}
 
 {% block page_content %}
 <!-- Button trigger modal -->
@@ -41,7 +43,7 @@
         <td>
             <a href="{{ url_for('ntfy.viewfile', id=notfy.id) }}" class="fa fa-eye" data-toggle="tooltip"
                title="查看"></a>
-            <a href="{{ url_for('ntfy.delete', id=notfy.id) }}" class="fa fa-remove" data-toggle="tooltip" title="删除"
+            <a href="{{ url_for('ntfy.delete', id=notfy.id) }}" class="fa fa-trash-o" data-toggle="tooltip" title="删除"
                onclick="javascript:return deletePrompt();"></a>
         </td>
     </tr>

@@ -2,7 +2,9 @@
 {% import "bootstrap/wtf.html" as wtf %}
 
 {% block title %}服务管理{% endblock %}
-{% block endpoint %}服务管理{% endblock %}
+{% block endpoint %}
+<a href="#" id="svindex"><i class="fa fa-server"></i>服务管理</a>
+{% endblock %}
 
 {% block page_content %}
 <!-- Button trigger modal -->
@@ -50,7 +52,7 @@
             <a href="{{ url_for('svm.start', id=sv.id) }}" class="fa fa-play" data-toggle="tooltip" title="启动"></a>
             {% endif %}
             <a href="{{ url_for('svm.change', id=sv.id) }}" class="fa fa-edit" data-toggle="tooltip" title="修改"></a>
-            <a href="{{ url_for('svm.delete', id=sv.id) }}" class="fa fa-remove" data-toggle="tooltip" title="删除"
+            <a href="{{ url_for('svm.delete', id=sv.id) }}" class="fa fa-trash-o" data-toggle="tooltip" title="删除"
                onclick="javascript:return deletePrompt();"></a>
         </td>
     </tr>

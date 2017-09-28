@@ -2,7 +2,9 @@
 {% import "bootstrap/wtf.html" as wtf %}
 
 {% block title %}修改用户{% endblock %}
-{% block endpoint %}修改用户{% endblock %}
+{% block endpoint %}
+<a href="{{ url_for('auth.index') }}" id="userlist"><i class="fa fa-users"></i>用户列表</a>
+{% endblock %}
 
 {% block page_content %}
 

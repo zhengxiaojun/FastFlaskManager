@@ -2,7 +2,9 @@
 {% import "bootstrap/wtf.html" as wtf %}
 
 {% block title %}修改联系人{% endblock %}
-{% block endpoint %}修改联系人{% endblock %}
+{% block endpoint %}
+<a href="{{ url_for('contact.index') }}" id="contacts"><i class="fa fa-phone-square"></i>联系人</a>
+{% endblock %}
 
 {% block page_content %}
 

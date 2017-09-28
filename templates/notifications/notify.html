@@ -2,7 +2,9 @@
 {% import "bootstrap/wtf.html" as wtf %}
 
 {% block title %}查看通知{% endblock %}
-{% block endpoint %}查看通知{% endblock %}
+{% block endpoint %}
+<a href="{{ url_for('ntfy.index') }}" id="ntfylist"><i class="fa fa-bell"></i>通知列表</a>
+{% endblock %}
 
 {% block page_content %}
 

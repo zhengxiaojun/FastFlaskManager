@@ -59,7 +59,7 @@ def my_talbe(cols, data):
         result_table += " class='fa fa-edit' data-toggle='tooltip' title='修改'></a>"
         result_table += " "
         result_table += "<a href='/contact/delete/" + str(line.id) + "'"
-        result_table += " class='fa fa-remove' data-toggle='tooltip' title='删除' "
+        result_table += " class='fa fa-trash-o' data-toggle='tooltip' title='删除' "
         result_table += "onclick='javascript:return deletePrompt();'></a></td>"
         result_table += "</tr>"
     result_table += "</tbody>"

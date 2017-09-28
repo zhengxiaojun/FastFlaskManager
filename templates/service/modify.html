@@ -2,7 +2,9 @@
 {% import "bootstrap/wtf.html" as wtf %}
 
 {% block title %}修改服务{% endblock %}
-{% block endpoint %}修改服务{% endblock %}
+{% block endpoint %}
+<a href="{{ url_for('svm.index') }}" id="svindex"><i class="fa fa-server"></i>服务管理</a>
+{% endblock %}
 
 {% block page_content %}
 

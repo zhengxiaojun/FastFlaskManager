@@ -2,7 +2,9 @@
 {% import "bootstrap/wtf.html" as wtf %}
 
 {% block title %}文件上传{% endblock %}
-{% block endpoint %}文件上传{% endblock %}
+{% block endpoint %}
+<a href="{{ url_for('tool.upload') }}" id="upload"><i class="fa fa-upload"></i>上传文件</a>
+{% endblock %}
 
 {% block page_content %}
 
@@ -39,7 +41,7 @@
                     <td><a href="{{ file.url }}"><img src="{{ file.url }}" height="50" width="50"/></a></td>
                     <td>{{ file.create_time }}</td>
                     <td>
-                        <a href="{{ url_for('tool.remove', id=file.id) }}" class="fa fa-remove" data-toggle="tooltip"
+                        <a href="{{ url_for('tool.remove', id=file.id) }}" class="fa fa-trash-o" data-toggle="tooltip"
                            title="删除"
                            onclick="javascript:return deletePrompt();"></a>
                     </td>

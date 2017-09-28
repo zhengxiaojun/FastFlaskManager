@@ -2,7 +2,9 @@
 {% import "bootstrap/wtf.html" as wtf %}
 
 {% block title %}消息{% endblock %}
-{% block endpoint %}消息{% endblock %}
+{% block endpoint %}
+<a href="{{ url_for('msg.index') }}" id="msglist"><i class="fa fa-envelope"></i>消息</a>
+{% endblock %}
 
 {% block page_content %}
 
