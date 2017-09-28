@@ -2,7 +2,7 @@
 from __future__ import unicode_literals
 from flask_wtf import FlaskForm
 from flask_wtf.file import FileField, FileRequired, FileAllowed
-from wtforms import *
+from wtforms import RadioField, SubmitField, StringField, PasswordField, TextAreaField
 from wtforms.validators import DataRequired, Length
 from ext import myfile
 

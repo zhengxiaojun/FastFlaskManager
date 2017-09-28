@@ -32,3 +32,9 @@ curl -i -H "Content-Type: application/json" -X DELETE http://127.0.0.1:5000/api/
 
 curl -i -H "Content-Type: application/json" http://127.0.0.1:5000/api/auth/token/1 -u demo:demo
 curl -i http://127.0.0.1:5000/api/auth/v1/users/3 -u eyJhbGciOiJIUzI1NiIsImV4cCI6MTUwNDUyMDgzNiwiaWF0IjoxNTA0NTIwMjM2fQ.eyJpZCI6MX0.41s2z4O8oUsdfofzznPyZh0tqDSM5nAYpMEWcVNvAd4:x
+
+
+###############  FILE UPLOAD ###################
+from flask_wtf.file import FileField
+
+FileField 取自 flask_wtf.file 不能取 wtforms,不然会提示 'FileField' object has no attribute 'has_file'
